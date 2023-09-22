@@ -2,6 +2,6 @@ namespace DomeGym.Domain;
 
 public class Subscription
 {
-    public required Guid Id { get; init; }
-    public List<Gym> Gyms { get; init; } = new();
+    private readonly Guid _id;
+    private readonly List<Guid> _gymIds;
 }

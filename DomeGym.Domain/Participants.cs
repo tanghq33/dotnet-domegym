@@ -2,5 +2,7 @@ namespace DomeGym.Domain;
 
 public class Participants
 {
-    public required Guid Id { get; init; }
+    private readonly Guid _id;
+    private readonly Guid _userId;
+    private readonly List<Guid> _sessionIds;
 }

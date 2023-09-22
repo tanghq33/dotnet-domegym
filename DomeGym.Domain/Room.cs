@@ -2,6 +2,6 @@ namespace DomeGym.Domain;
 
 public class Room
 {
-    public required Guid Id { get; init; }
-    public List<Session> Sessions { get; init; } = new();
+    private readonly Guid _id;
+    private readonly List<Guid> _sessionIds;
 }

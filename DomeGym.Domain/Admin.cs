@@ -2,5 +2,6 @@
 
 public class Admin
 {
-    public required Guid Id { get; init; }
+    private readonly Guid _id;
+    private readonly Guid _userId;
 }
