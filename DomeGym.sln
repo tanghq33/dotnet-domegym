@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomeGym.Domain", "DomeGym.Domain\DomeGym.Domain.csproj", "{9BAE94C1-4F89-4419-AA10-EC91ADF3BD56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomeGym.Domain.UnitTests", "DomeGym.Domain.UnitTests\DomeGym.Domain.UnitTests.csproj", "{D01D8718-D45C-4C73-B91F-449EFD65ECC0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9BAE94C1-4F89-4419-AA10-EC91ADF3BD56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BAE94C1-4F89-4419-AA10-EC91ADF3BD56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BAE94C1-4F89-4419-AA10-EC91ADF3BD56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BAE94C1-4F89-4419-AA10-EC91ADF3BD56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D01D8718-D45C-4C73-B91F-449EFD65ECC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D01D8718-D45C-4C73-B91F-449EFD65ECC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D01D8718-D45C-4C73-B91F-449EFD65ECC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D01D8718-D45C-4C73-B91F-449EFD65ECC0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
