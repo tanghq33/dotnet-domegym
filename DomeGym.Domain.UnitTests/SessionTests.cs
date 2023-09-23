@@ -28,12 +28,15 @@ public class SessionTests
         // Act
         // Add participant 1
         // Add participant 2
-        session.ReserveSpot(participant1);
-        var action = () => session.ReserveSpot(participant2);
+        var reserveParticipant1Result = session.ReserveSpot(participant1);
+        var reserveParticipant2Result = session.ReserveSpot(participant2);
+        
 
         // Assert
         // Participant 2 reservation should fail
-        action.Should().ThrowExactly<Exception>();
+        reserveParticipant1Result.IsError.Should().BeFalse();
+        reserveParticipant2Result.IsError.Should().BeTrue();
+        reserveParticipant2Result.FirstError.Should().BeEquivalentTo(SessionErrors.ParticipantsLimitReached);
     }
 
     [Fact]
@@ -52,17 +55,19 @@ public class SessionTests
         
         var participant = ParticipantFactory.CreateParticipant(id: Guid.NewGuid(), userId: Guid.NewGuid());
         
-        session.ReserveSpot(participant);
 
         _dateTimeProvider.UtcNow.Returns(Constants.Session.Date.ToDateTime(TimeOnly.MinValue));
         
         // Act
         // Cancel the reservation less than 24 hours before the session
-        var action = () => session.CancelReservation(participant, _dateTimeProvider);
+        var reserveSpotResult = session.ReserveSpot(participant);
+        var cancelReservationResult = session.CancelReservation(participant, _dateTimeProvider);
         
         // Assert
         // The cancellation should fail
-        action.Should().ThrowExactly<Exception>();
+        reserveSpotResult.IsError.Should().BeFalse();
+        cancelReservationResult.IsError.Should().BeTrue();
+        cancelReservationResult.FirstError.Should().BeEquivalentTo(SessionErrors.CannotCancelReservationTooCloseToSession);
 
     }
 }
