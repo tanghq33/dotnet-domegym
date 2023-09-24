@@ -2,6 +2,11 @@ namespace DomeGym.Domain;
 
 public class Room
 {
-    private readonly Guid _id;
-    private readonly List<Guid> _sessionIds;
+    public Guid Id { get; }
+    private readonly List<Guid> _sessionIds = new();
+
+    public Room(Guid id)
+    {
+        Id = id;
+    }
 }
