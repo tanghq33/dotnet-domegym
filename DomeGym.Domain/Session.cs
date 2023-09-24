@@ -5,7 +5,7 @@ namespace DomeGym.Domain;
 
 public class Session
 {
-    private readonly Guid _id;
+    public Guid Id { get; }
     private readonly Guid _trainerId;
     private readonly List<Guid> _participantsIds = new();
     private readonly int _maxParticipants;
@@ -20,7 +20,7 @@ public class Session
         _endTime = endTime;
         _maxParticipants = maxParticipants;
         _trainerId = trainerId;
-        _id = id ?? Guid.NewGuid();
+        Id = id ?? Guid.NewGuid();
     }
 
     public ErrorOr<Success> ReserveSpot(Participant participant)
