@@ -6,19 +6,24 @@ public class Room
 {
     public Guid Id { get; }
     private readonly List<Guid> _sessionIds = new();
-    private readonly int _maxSessions;
+    private readonly int _maxDailySessions;
 
-    public Room(Guid id, int maxSessions)
+    public Room(Guid id, int maxDailySessions)
     {
         Id = id;
-        _maxSessions = maxSessions;
+        _maxDailySessions = maxDailySessions;
     }
 
-    public ErrorOr<Success> AddSession(Session session)
+    public ErrorOr<Success> ScheduleSession(Session session)
     {
-        if (_sessionIds.Count >= _maxSessions)
+        if (_sessionIds.Any(id => id.Equals(session.Id)))
         {
-            return RoomErrors.SessionsLimitReached;
+            return RoomErrors.SessionsExists;
+        }
+        
+        if (_sessionIds.Count >= _maxDailySessions)
+        {
+            return RoomErrors.CannotHaveMoreSessionThanSubscriptionAllows;
         }
         
         _sessionIds.Add(session.Id);

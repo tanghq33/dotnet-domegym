@@ -12,8 +12,8 @@ public class GymTests
         // Create a room 1
         // Create a room 2
         var gym = new Gym(id: Guid.NewGuid(), maxRooms: 1);
-        var room1 = new Room(id: Guid.NewGuid(), maxSessions: 1);
-        var room2 = new Room(id: Guid.NewGuid(), maxSessions: 1);
+        var room1 = new Room(id: Guid.NewGuid(), maxDailySessions: 1);
+        var room2 = new Room(id: Guid.NewGuid(), maxDailySessions: 1);
 
         // Act
         // Add room 1
