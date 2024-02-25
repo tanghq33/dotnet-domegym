@@ -1,4 +1,4 @@
-namespace DomeGym.Domain;
+﻿namespace DomeGym.Domain;
 
 public class Subscription
 {
