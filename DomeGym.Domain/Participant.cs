@@ -1,15 +1,16 @@
-﻿namespace DomeGym.Domain;
+﻿using DomeGym.Domain.Common;
 
-public class Participant
+namespace DomeGym.Domain;
+
+public class Participant : Entity
 {
-    public Guid Id { get; }
     private readonly Guid _userId;
 
-    private readonly List<Guid> _sessionIds;
+    private readonly List<Guid> _sessionIds = new();
 
     public Participant(Guid userId, Guid? id = null)
+        : base(id ?? Guid.NewGuid())
     {
         _userId = userId;
-        Id = id ?? Guid.NewGuid();
     }
 }

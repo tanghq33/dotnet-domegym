@@ -10,7 +10,7 @@ namespace DomeGym.Domain.UnitTests;
 public class SessionTests
 {
     [Fact]
-    public void ReserveSpot_WhenNoMoreRoom_ShouldFailReservation()
+    public void ReserveSpot_WhenNoMoreSlot_ShouldFailReservation()
     {
         // Arrange
         var session = SessionFactory.CreateSession(maxParticipants: 1);

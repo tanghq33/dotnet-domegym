@@ -1,8 +1,9 @@
-﻿using ErrorOr;
+﻿using DomeGym.Domain.Common;
+using ErrorOr;
 
 namespace DomeGym.Domain;
 
-public class Session
+public class Session : Entity
 {
     private readonly int _maxParticipants;
     private readonly Guid _id;
@@ -18,14 +19,13 @@ public class Session
         TimeOnly endTime,
         int maxParticipants, 
         Guid trainerId, 
-        Guid? id = null)
+        Guid? id = null) : base(id ?? Guid.NewGuid())
     {
         _date = date;
         _startTime = startTime;
         _endTime = endTime;
         _maxParticipants = maxParticipants;
         _trainerId = trainerId;
-        _id = id ?? Guid.NewGuid();
     }
 
     public ErrorOr<Success> ReserveSpot(Participant participant)
