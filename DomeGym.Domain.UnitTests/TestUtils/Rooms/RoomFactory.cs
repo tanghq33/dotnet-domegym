@@ -1,20 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DomeGym.Domain.UnitTests.TestUtils.TestConstants;
+namespace DomeGym.Domain.UnitTests.TestUtils.Rooms;
 
-namespace DomeGym.Domain.UnitTests.TestUtils.Rooms
+public static class RoomFactory
 {
-    public static class RoomFactory
+    public static Room CreateRoom(
+        int maxDailySessions = Constants.Room.MaxDailySessions,
+        Guid? gymId = null,
+        Guid? id = null)
     {
-        public static Room CreateRoom(
-            int maxSessions = Constants.Room.MaxSessions,
-            Guid? id = null)
-        {
-            return new Room(
-                maxSessions: maxSessions,
-                id: id ?? Constants.Room.Id);
-        }
+        return new Room(
+            maxDailySessions: maxDailySessions,
+            gymId: gymId ?? Constants.Gym.Id,
+            id: id ?? Constants.Room.Id);
     }
 }

@@ -1,31 +1,39 @@
-﻿using DomeGym.Domain.Common;
 using ErrorOr;
 
 namespace DomeGym.Domain;
 
-public class Gym : Entity
+public class Gym
 {
+    private readonly Guid _subscriptionId;
+    private readonly int _maxRooms;
     private readonly List<Guid> _roomIds = new();
-    private Guid id;
-    private int _maxRooms;
 
-    public Gym(int maxRooms, Guid? id = null)
-        : base(id ?? Guid.NewGuid())
+    public Guid Id { get; }
+
+    public Gym(
+    int maxRooms,
+    Guid subscriptionId,
+    Guid? id = null)
     {
         _maxRooms = maxRooms;
+        _subscriptionId = subscriptionId;
+        Id = id ?? Guid.NewGuid();
     }
 
     public ErrorOr<Success> AddRoom(Room room)
     {
+        if (_roomIds.Contains(room.Id))
+        {
+            return Error.Conflict(description: "Room already exists in gym");
+        }
+
         if (_roomIds.Count >= _maxRooms)
         {
-            return Error.Validation(
-                code: "Gym.CannotHaveMoreRoomsThanMaxiumumAllowed",
-                description: "Cannot have more rooms than the maximum allowed");
+            return GymErrors.CannotHaveMoreRoomsThanSubscriptionAllows;
         }
 
         _roomIds.Add(room.Id);
-        
+
         return Result.Success;
     }
 }

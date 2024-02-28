@@ -1,16 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ErrorOr;
 
-namespace DomeGym.Domain
+namespace DomeGym.Domain;
+
+public static class RoomErrors
 {
-    public static class RoomErrors
-    {
-        public readonly static Error MaxSessionsReached = Error.Validation(
-            code: "Room.MaxSessionsReached",
-            description: "The maximum number of sessions has been reached."
-        );
-    }
+    public static readonly Error CannotHaveMoreSessionThanSubscriptionAllows = Error.Validation(
+        "Room.CannotHaveMoreSessionThanSubscriptionAllows",
+        "A room cannot have more scheduled sessions than the subscription allows");
+
+    public static readonly Error CannotHaveTwoOrMoreOverlappingSessions = Error.Validation(
+        "Room.CannotHaveTwoOrMoreOverlappingSessions",
+        "A room cannot have two or more overlapping sessions");
 }

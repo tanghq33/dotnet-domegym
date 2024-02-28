@@ -1,9 +1,10 @@
-namespace DomeGym.Domain.UnitTests.TestUtils.TestConstants;
-public partial class Constants
+namespace DomeGym.Domain.UnitTests.TestConstants;
+
+public static partial class Constants
 {
-    public class Room
+    public static class Room
     {
-        public static Guid Id => Guid.NewGuid();
-        public const int MaxSessions = 5;
+        public static readonly Guid Id = Guid.NewGuid();
+        public const int MaxDailySessions = Subscriptions.MaxDailySessionsFreeTier;
     }
 }

@@ -1,36 +1,66 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using DomeGym.Domain.UnitTests.TestUtils.Common;
 using DomeGym.Domain.UnitTests.TestUtils.Rooms;
 using DomeGym.Domain.UnitTests.TestUtils.Sessions;
 using FluentAssertions;
-using Xunit;
 
-namespace DomeGym.Domain.UnitTests
+namespace DomeGym.Domain.UnitTests;
+
+public class RoomTests
 {
-    public class RoomTests
+    [Fact]
+    public void ScheduleSession_WhenMoreThanSubscriptionAllows_ShouldFail()
     {
-        [Fact]
-        public void AddSession_WhenMoreThanMaximumAllowed_ShouldFail()
-        {
-            // Arrange
-            Room room = RoomFactory.CreateRoom(maxSessions: 2);
-            var session1 = SessionFactory.CreateSession(id: Guid.NewGuid());
-            var session2 = SessionFactory.CreateSession(id: Guid.NewGuid());
-            var session3 = SessionFactory.CreateSession(id: Guid.NewGuid());
+        // Arrange
+        var room = RoomFactory.CreateRoom(
+            maxDailySessions: 1);
 
-            // Act
-            var addSessionResult1 = room.AddSession(session1);
-            var addSessionResult2 = room.AddSession(session2);
-            var addSessionResult3 = room.AddSession(session3);
+        var session1 = SessionFactory.CreateSession(id: Guid.NewGuid());
+        var session2 = SessionFactory.CreateSession(id: Guid.NewGuid());
 
-            // Assert
-            addSessionResult1.IsError.Should().BeFalse();
-            addSessionResult2.IsError.Should().BeFalse();
-            addSessionResult3.IsError.Should().BeTrue();
+        // Act
+        var scheduleSession1Result = room.ScheduleSession(session1);
+        var scheduleSession2Result = room.ScheduleSession(session2);
 
-            addSessionResult3.FirstError.Should().Be(RoomErrors.MaxSessionsReached);
-        }
+        // Assert
+        scheduleSession1Result.IsError.Should().BeFalse();
+
+        scheduleSession2Result.IsError.Should().BeTrue();
+        scheduleSession2Result.FirstError.Should().Be(RoomErrors.CannotHaveMoreSessionThanSubscriptionAllows);
+    }
+
+    [Theory]
+    [InlineData(1, 3, 1, 3)] // exact overlap
+    [InlineData(1, 3, 2, 3)] // second session inside first session
+    [InlineData(1, 3, 2, 4)] // second session ends after session, but overlaps
+    [InlineData(1, 3, 0, 2)] // second session starts before second session, but overlaps
+    public void ScheduleSession_WhenSessionOverlapsWithAnotherSession_ShouldFail(
+        int startHourSession1,
+        int endHourSession1,
+        int startHourSession2,
+        int endHourSession2)
+    {
+        // Arrange
+        var room = RoomFactory.CreateRoom(
+            maxDailySessions: 2);
+
+        var session1 = SessionFactory.CreateSession(
+            date: Constants.Session.Date,
+            time: TimeRangeFactory.CreateFromHours(startHourSession1, endHourSession1),
+            id: Guid.NewGuid());
+
+        var session2 = SessionFactory.CreateSession(
+            date: Constants.Session.Date,
+            time: TimeRangeFactory.CreateFromHours(startHourSession2, endHourSession2),
+            id: Guid.NewGuid());
+
+        // Act
+        var scheduleSession1Result = room.ScheduleSession(session1);
+        var scheduleSession2Result = room.ScheduleSession(session2);
+
+        // Assert
+        scheduleSession1Result.IsError.Should().BeFalse();
+
+        scheduleSession2Result.IsError.Should().BeTrue();
+        scheduleSession2Result.FirstError.Should().Be(RoomErrors.CannotHaveTwoOrMoreOverlappingSessions);
     }
 }

@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+namespace DomeGym.Domain.UnitTests.TestConstants;
 
-namespace DomeGym.Domain.UnitTests.TestUtils.TestConstants;
-public partial class Constants
+public static partial class Constants
 {
-    public class User
+    public static class User
     {
-        public static Guid Id => Guid.NewGuid();
+        public static readonly Guid Id = Guid.NewGuid();
     }
 }

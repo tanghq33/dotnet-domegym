@@ -1,22 +1,17 @@
-using System.Reflection.Metadata;
-using DomeGym.Domain.UnitTests.TestUtils.TestConstants;
-
 namespace DomeGym.Domain.UnitTests.TestUtils.Sessions;
 
 public static class SessionFactory
 {
     public static Session CreateSession(
         DateOnly? date = null,
-        TimeOnly? startTime = null,
-        TimeOnly? endTime = null,
-        int maxParticipants = Constants.Session.MaxParticipants, 
+        TimeRange? time = null,
+        int maxParticipants = Constants.Session.MaxParticipants,
         Guid? id = null)
     {
         return new Session(
-            date: Constants.Session.Date,
-            startTime: Constants.Session.StartTime,
-            endTime: Constants.Session.EndTime,
-            maxParticipants, 
+            date ?? Constants.Session.Date,
+            time ?? Constants.Session.Time,
+            maxParticipants,
             trainerId: Constants.Trainer.Id,
             id: id ?? Constants.Session.Id);
     }

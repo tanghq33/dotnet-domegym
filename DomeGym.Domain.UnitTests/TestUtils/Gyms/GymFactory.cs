@@ -1,16 +1,14 @@
-﻿
-using DomeGym.Domain.UnitTests.TestUtils.TestConstants;
-
-namespace DomeGym.Domain.UnitTests;
+namespace DomeGym.Domain.UnitTests.TestUtils.Gyms;
 
 public static class GymFactory
 {
     public static Gym CreateGym(
-        int maxRooms = Constants.Gym.MaxRooms,
+        int maxRooms = Constants.Subscriptions.MaxRoomsFreeTier,
         Guid? id = null)
     {
         return new Gym(
-            maxRooms: maxRooms, 
+            maxRooms,
+            subscriptionId: Constants.Subscriptions.Id,
             id: id ?? Constants.Gym.Id);
     }
 }

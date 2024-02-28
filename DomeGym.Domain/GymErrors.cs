@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ErrorOr;
 
 namespace DomeGym.Domain;
+
 public static class GymErrors
 {
-    public static readonly Error MaxRoomsReached = Error.Validation(
-                code: "Gym.CannotHaveMoreRoomsThanMaxiumumAllowed",
-                description: "Cannot have more rooms than the maximum allowed");
+    public static readonly Error CannotHaveMoreRoomsThanSubscriptionAllows = Error.Validation(
+        "Room.CannotHaveMoreRoomsThanSubscriptionAllows",
+        "A gym cannot have more rooms than the subscription allows");
 }

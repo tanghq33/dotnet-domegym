@@ -1,17 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+namespace DomeGym.Domain.UnitTests.TestConstants;
 
-namespace DomeGym.Domain.UnitTests.TestUtils.TestConstants;
-public partial class Constants
+public static partial class Constants
 {
-    public class Session
+    public static class Session
     {
-        public static Guid Id => Guid.NewGuid();
-        public static DateOnly Date => new DateOnly(2022, 1, 1);
-        public static TimeOnly StartTime => new TimeOnly(10, 0);
-        public static TimeOnly EndTime => new TimeOnly(11, 0);
+        public static readonly Guid Id = Guid.NewGuid();
+        public static readonly DateOnly Date = DateOnly.FromDateTime(DateTime.UtcNow);
+        public static readonly TimeRange Time = new(
+            TimeOnly.MinValue.AddHours(8),
+            TimeOnly.MinValue.AddHours(9));
+
         public const int MaxParticipants = 10;
     }
 }
